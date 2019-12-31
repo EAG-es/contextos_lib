@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class contextos implements Cloneable {
-    public static String op = "op:\"";
+    public static String op = "op:\""; //NOI18N
     public entes mapa = null;
     public LinkedList<entes> mapas_pila = new LinkedList<>();
     public entes con_su = null;
@@ -66,9 +66,9 @@ public class contextos implements Cloneable {
     {
         grupos grupo = new grupos();
         int i = 0;
-        String nombre_en_grupo = "";
+        String nombre_en_grupo = ""; //NOI18N
         for (tipos tipo: tipos_array) {
-            nombre_en_grupo = nombre + "[" + i + "]";
+            nombre_en_grupo = nombre + "[" + i + "]"; //NOI18N
             a_eles ele = a_eles.crear(tipo);
             ele.nombre = nombre_en_grupo;
             grupo.poner(ele);
@@ -110,7 +110,7 @@ public class contextos implements Cloneable {
      */
     public a_eles superponer(Object ... eles_array) {
         a_eles retorno = a_eles.falso();
-        String clave = "";
+        String clave = ""; //NOI18N
         int tam = eles_array.length;
         if (tam % 2 == 0) {
             int i = 0;
@@ -130,7 +130,7 @@ public class contextos implements Cloneable {
             }
             retorno = a_eles.verdad();
         } else {
-            throw new RuntimeException("poner ({nombre, valor}); número de parámetros incorrecto. ");
+            throw new RuntimeException(java.util.ResourceBundle.getBundle("in/innui/contextos/in").getString("PONER ({NOMBRE, VALOR}); NÚMERO DE PARÁMETROS INCORRECTO. "));
         }
         return retorno;
     }
@@ -206,7 +206,7 @@ public class contextos implements Cloneable {
      */
     public a_eles bajar_con_datos(Object ... eles_array) {
         a_eles dato = null;
-        String clave = "";
+        String clave = ""; //NOI18N
         entes submapa = null;
         int tam = eles_array.length;
         if (tam > 0
@@ -241,7 +241,7 @@ public class contextos implements Cloneable {
                 }
             }
         } else {
-            throw new RuntimeException("bajar_datos ({nombre, valor (nuevo) o null (lo que hay)}); número de parámetros incorrecto. ");
+            throw new RuntimeException(java.util.ResourceBundle.getBundle("in/innui/contextos/in").getString("BAJAR_DATOS ({NOMBRE, VALOR (NUEVO) O NULL (LO QUE HAY)}); NÚMERO DE PARÁMETROS INCORRECTO. "));
         }
         return bajar();
     }
@@ -254,7 +254,7 @@ public class contextos implements Cloneable {
      */
     public a_eles bajar(String ... nombres_array) {
         a_eles dato = null;
-        String clave = "";
+        String clave = ""; //NOI18N
         int tam = nombres_array.length;
         entes submapa = null;
         if (tam > 0) {
@@ -292,15 +292,14 @@ public class contextos implements Cloneable {
      */
     public a_eles fondear_con_datos(Object ... eles_array) {
         a_eles dato = null;
-        String clave = "";
+        String clave = ""; //NOI18N
         int tam = eles_array.length;
         entes submapa = null;
         if (tam > 0) {
             if (mapas_pila.isEmpty() == false) {
                 submapa = mapas_pila.getFirst();
             } else {
-                submapa = new entes();
-                mapas_pila.addLast(submapa);
+                submapa = mapa;
             }
             int i = 0;
             while (true) {
@@ -335,21 +334,21 @@ public class contextos implements Cloneable {
      */
     public a_eles es(String ... strings_array) {
         a_eles ret = subir();
-        String error = ""; 
+        String error = "";  //NOI18N
         try {
             for (String nombre: strings_array) {
                 if (leer(nombre).es() == false) {
                     if (nombre.startsWith(op) == false) {
-                        error += nombre + ". ";
+                        error += nombre + ". "; //NOI18N
                         ret.no();
                     }
                 }
             }
             if (error.isEmpty() == false) {
-                error = "No en contexto: " + error;
+                error = java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("in/innui/contextos/in").getString("NO EN CONTEXTO: {0}"), new Object[] {error});
             }
         } finally {
-            bajar_con_datos("error", error);
+            bajar_con_datos("error", error); //NOI18N
         }
         return ret;
     }

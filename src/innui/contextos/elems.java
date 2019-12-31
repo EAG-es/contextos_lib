@@ -56,7 +56,7 @@ public class elems <tipos> extends a_eles {
                 a = (tipos) dato_eles.leer_accion();
             } else {
                 a = null;
-                throw new RuntimeException("restricción de fuerte tipado: no se permite que un elemento cambie su contenido a una clase no compatible. ");
+                throw new RuntimeException(java.util.ResourceBundle.getBundle("in/innui/contextos/in").getString("RESTRICCIÓN DE FUERTE TIPADO: NO SE PERMITE QUE UN ELEMENTO CAMBIE SU CONTENIDO A UNA CLASE NO COMPATIBLE. "));
             }
         }
         return this;

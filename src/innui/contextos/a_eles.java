@@ -311,7 +311,7 @@ public abstract class a_eles implements i_eles {
     }
     
     public final static a_eles texto() {
-        return elems.crear("");
+        return elems.crear(""); //NOI18N
     }
     
     public final static a_eles nulo() {
