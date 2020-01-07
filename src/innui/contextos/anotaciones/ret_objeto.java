@@ -10,6 +10,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Anotación que indica los datos de retorno de un método
+ */
 @Retention (RetentionPolicy.RUNTIME)
 @Target (ElementType.METHOD)
 public @interface ret_objeto {

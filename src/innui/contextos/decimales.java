@@ -6,8 +6,7 @@
 package innui.contextos;
 
 /**
- *
- * @author emilio
+ * Recubrimiento de la clase Double para poder que sus instancias puedan ser tratados como objeto mutable.
  */
 public class decimales extends elems<Double> {
     public decimales(double value) {

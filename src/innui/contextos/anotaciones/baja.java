@@ -11,6 +11,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Anotación que indica un dato de contexto que es nuevo; y se baja al nivel superior, que queda al finalizar el método
+ */
 @Retention (RetentionPolicy.RUNTIME)
 @Target (ElementType.METHOD)
 @Repeatable(baja_array.class)

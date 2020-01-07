@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 public class grupos extends LinkedHashSet<a_eles> implements Cloneable {
     public Iterator<a_eles> iterador_valor = null;
     public Long posicion_valor = 0L;
-    public Long tam_valor = 0L;
+    public Long tam = 0L;
     public entes con_su = null;
 
     @Override
@@ -22,7 +22,7 @@ public class grupos extends LinkedHashSet<a_eles> implements Cloneable {
                 grupo.iterador_valor = (Iterator<a_eles>) a_eles.clonar_objeto(iterador_valor);
             }
             grupo.posicion_valor = posicion_valor;
-            grupo.tam_valor = tam_valor;
+            grupo.tam = tam;
             if (con_su != null) {
                 grupo.con_su = con_su.clone();
             }
@@ -31,24 +31,37 @@ public class grupos extends LinkedHashSet<a_eles> implements Cloneable {
         }
         return grupo;
     }
-    
+    /**
+     * Alias de add
+     * @param ele
+     * @return 
+     */
     public a_eles poner(a_eles ele) {
         add(ele);
         return ele;
     }
-
+    /**
+     * Alias de addAll
+     * @param eles_array
+     * @return 
+     */
     public a_eles poner_grupo(a_eles ... eles_array)
     {
         addAll(Arrays.asList(eles_array));
         return elems.verdad();
     }
-    
+    /**
+     * Reinicia los valores de los atributos utilizados para el recorrido del mapa con claves numéricas.
+     */
     public void iniciar() {
         iterador_valor = this.iterator();
         posicion_valor = 0L;
-        tam_valor = Long.valueOf(size());
+        tam = Long.valueOf(size());
     }
-
+    /**
+     * Lee el siguiente elemento del mapa. con el último iterador generado.
+     * @return El siguiente elemento o a_eles.nulo()
+     */
     public a_eles leer_siguiente() {
         a_eles retorno = elems.nulo();
         if (iterador_valor == null) {
@@ -60,14 +73,20 @@ public class grupos extends LinkedHashSet<a_eles> implements Cloneable {
         }
         return retorno;
     }
-    
+    /**
+     * Lee el elemento del mapa en la posición indicada
+     * @param pos Posición donde leer.
+     * @return El elemento buscado o a_eles.nulo
+     */
     public a_eles leer(long pos) {
         a_eles retorno = elems.nulo();
         if (pos >= 0
                 || pos < size()) {
+            if (tam != size()) {
+                iniciar();
+            }
             if (iterador_valor != null) {
-                if (tam_valor != size()
-                        || pos < posicion_valor) {
+                if (pos < posicion_valor) {
                     iterador_valor = null;
                 }
             }

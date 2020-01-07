@@ -6,8 +6,7 @@
 package innui.contextos;
 
 /**
- *
- * @author emilio
+ * Recubrimiento de la clase Long para poder que sus instancias puedan ser tratados como objeto mutable.
  */
 public class enteros extends elems<Long> {
     public enteros(long value) {

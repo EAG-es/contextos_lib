@@ -9,12 +9,38 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- *
- * @author emilio
+ * Lista enlazada con limitación de tamaño
  */
 public class filas extends LinkedList<a_eles> {
     public int max_tam = 0;
-    
+    /**
+     * Mapa de entidades con el que estender los atributos de la instancia.
+     */
+    public entes con_su = null;
+    /**
+     * Crea un nuevo objeto, clona los componentes del LikedHashMap actual y los asigna al nuevo.
+     * @return El nuevo objeto
+     */
+    @Override
+    public filas clone() {
+        filas fila = new filas();
+        try {
+            for (a_eles entrada : this) {
+                fila.add(entrada.clone());
+            }
+            if (con_su != null) {
+                fila.con_su = con_su.clone();
+            }
+            fila.max_tam = max_tam;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return fila;
+    }    
+    /**
+     * Poner el tamaño máximo
+     * @param max_tam Tamaño máximo.
+     */
     public void poner_max_tam(int max_tam) {
         this.max_tam = max_tam;
     }

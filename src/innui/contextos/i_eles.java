@@ -54,9 +54,23 @@ public interface i_eles extends Cloneable, Serializable {
     public Boolean es_nulo();
      /**
       * Indica si el elemento encapsulado es (se identifica como) verdad o no.
-      * @return true si el elemento encapsulado es verdad o no.
+      * @return true si el elemento encapsulado es verdad, false en caso contrario.
       */     
     public Boolean es();
+     /**
+      * Indica si el elemento encapsulado no es (no se identifica como) verdad o no.
+      * @return true si el elemento encapsulado es falso, false en caso contrario.
+      */     
+    public Boolean no_es();
+    /**
+     * Utiliza un umbral para determinar si algo es verdad o no
+     * Si (este > falso // verdad o gran verdad
+     * || este <= umbral_si) retronar si();
+     * Contra retornar no();
+     * @param umbral_si Valor númerico de umbral
+     * @return si() o no() 
+     */
+    public a_eles si_o_no(Long umbral_si);    
      /**
       * Extrae el Boolean del objeto encapsulado, o lo adapta a ese tipo, si es posible.
       * @return el elemento adaptado o null

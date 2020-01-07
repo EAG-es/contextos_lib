@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- *
- * @author daw
+ * Implementación de la clase abstracta a_eles
+ * @param <tipos> Tipo que utilizar al instanciar la clase
  */
 public class elems <tipos> extends a_eles {
     public tipos a = null;
@@ -19,15 +19,18 @@ public class elems <tipos> extends a_eles {
         return new elems<> ();
     }    
     
+    @Override
     public tipos dar() {
         return a;
     }
            
+    @Override
     public tipos dar(a_eles ret) {
         ret.poner(es());
         return a;
     }
            
+    @Override
     public a_eles poner(Object dato) {
         if (a == null) {
             a = (tipos) dato;

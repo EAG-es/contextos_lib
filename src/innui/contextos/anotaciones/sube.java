@@ -11,6 +11,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Anotación que indica un dato de contexto que sube, para ser creados nuevos (tal vez, por contener objetos inmutables; o porque el método crea nuevas instancias) en el método.
+ */
 @Retention (RetentionPolicy.RUNTIME)
 @Target (ElementType.METHOD)
 @Repeatable(sube_array.class)

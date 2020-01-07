@@ -9,11 +9,10 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 /**
- *
- * @author emilio
+ * Recubrimiento de la clase String para que sus instancias puedan ser tratados como objeto mutable.
  */
-
 public class textos extends elems<String> {
+    
     public textos() {
         a = new String();
     }

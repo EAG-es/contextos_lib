@@ -6,10 +6,10 @@
 package innui.contextos;
 
 /**
- *
- * @author emilio
+ * Recubrimiento de la clase Boolean para que sus instancias puedan ser tratados como objeto mutable.
  */
 public class bools extends elems<Boolean> {
+    
     public bools(boolean value) {
         a = value;
     }

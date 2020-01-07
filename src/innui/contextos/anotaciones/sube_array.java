@@ -10,6 +10,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Anotación para un array de anotaciones: sube
+ */
 @Retention (RetentionPolicy.RUNTIME)
 @Target (ElementType.METHOD)
 public @interface sube_array {

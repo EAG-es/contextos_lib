@@ -1,14 +1,34 @@
 package innui.contextos;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class contextos implements Cloneable {
-    public static String op = "op:\""; //NOI18N
+/**
+ * 
+ */
+public class contextos implements Cloneable, Serializable {
+    /**
+     * Prefijo para designar los nombre del contexto que son opcionales-
+     */
+    public static String k_op = "op:\""; //NOI18N
+    /**
+     * Mapa que almacena los elementos de nivel superior del contexto.
+     */
     public entes mapa = null;
+    /**
+     * Lista con los siguientes niveles del contexto. Los niveles más altos son los más recientes (últimos).
+     */
     public LinkedList<entes> mapas_pila = new LinkedList<>();
+    /**
+     * Mapa de entidades con el que estender los atributos de la instancia.
+     */
     public entes con_su = null;
-
+    /**
+     * Clona el contexto
+     * @return El nuevo objeto clonado
+     * @throws CloneNotSupportedException 
+     */
     @Override
     public contextos clone() throws CloneNotSupportedException {
         contextos contexto = new contextos();
@@ -171,9 +191,11 @@ public class contextos implements Cloneable {
 
     /**
      * Subir el nivel de la pila que permite la recursividad
- eles_array a_eles que subir en la pila
- Solo deben subir pila aquellos elementos que se van a crear nuevos (directa o indirectamente).
+     * eles_array a_eles que subir en la pila
+     * Solo deben subir pila aquellos elementos que se van a crear nuevos (directa o indirectamente).
      * O que son inmutables, como los números o los String.
+     * @param eles_array Los elementos que subir.
+     * @return a_eles.verdad()
      */
     public a_eles subir(a_eles ... eles_array) {
         if (mapa != null) {
@@ -338,7 +360,7 @@ public class contextos implements Cloneable {
         try {
             for (String nombre: strings_array) {
                 if (leer(nombre).es() == false) {
-                    if (nombre.startsWith(op) == false) {
+                    if (nombre.startsWith(k_op) == false) {
                         error += nombre + ". "; //NOI18N
                         ret.no();
                     }
