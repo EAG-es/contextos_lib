@@ -15,6 +15,7 @@ import java.math.BigInteger;
 public class elems <tipos> extends a_eles {
     public tipos a = null;
     
+    @Override
     public <crear_tipos> a_eles crear_nuevo() {
         return new elems<> ();
     }    
@@ -25,13 +26,13 @@ public class elems <tipos> extends a_eles {
     }
            
     @Override
-    public tipos dar(a_eles ret) {
+    public tipos dar(i_eles ret) {
         ret.poner(es());
         return a;
     }
            
     @Override
-    public a_eles poner(Object dato) {
+    public i_eles poner(Object dato) {
         if (a == null) {
             a = (tipos) dato;
         } else if (a.getClass().isInstance(dato)) {
@@ -39,7 +40,7 @@ public class elems <tipos> extends a_eles {
         } else if (dato.getClass().isInstance(a)) {
             a = (tipos) dato;
         } else {
-            a_eles dato_eles = a_eles.crear(dato);
+            i_eles dato_eles = a_eles.crear(dato);
             if (a instanceof String) {
                 a = (tipos) dato_eles.leer_texto();
             } else if (a instanceof BigInteger

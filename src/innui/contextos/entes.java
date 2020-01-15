@@ -9,11 +9,15 @@ import java.util.Map.Entry;
 /**
  * Implementación de LinkedHashMap que agrega iteradores que permiten accesos por clave numérica.
  */
-public class entes extends LinkedHashMap<String, a_eles> {
+public class entes extends LinkedHashMap<String, i_eles> implements i_eles {
+    /**
+     * Atributo que trata a esta instancia de entes como un i_ele
+     */
+    public i_eles i_ele;
     /**
      * Iterador para recorrer los valores de las entes
      */
-    public Iterator<a_eles> iterador_valor = null;
+    public Iterator<i_eles> iterador_valor = null;
     /**
      * Posición actual en el iterador de valores
      */
@@ -26,25 +30,30 @@ public class entes extends LinkedHashMap<String, a_eles> {
      * Mapa de entidades con el que estender los atributos de la instancia.
      */
     public entes con_su = null;
-
+    /**
+     * Construye el objeto ente y se lo asigna a i_ele.
+     */
+    public entes() {
+        i_ele = a_eles.crear(this);
+    }
     /**
      * Crea un nuevo objeto, clona los componentes del LikedHashMap actual y los asigna al nuevo.
      * @return El nuevo objeto
      */
     @Override
-    public entes clone() {
+    public i_eles clone() {
         entes ente = new entes();
         try {
-            for (Entry<String, a_eles> entrada : entrySet()) {
+            for (Entry<String, i_eles> entrada : entrySet()) {
                 ente.put(entrada.getKey(), entrada.getValue().clone());
             }
             if (con_su != null) {
-                ente.con_su = con_su.clone();
+                ente.con_su = (entes) con_su.clone();
             }
-            ente.iterador_valor = (Iterator<a_eles>) clonar_objeto(iterador_valor);
+            ente.iterador_valor = (Iterator<i_eles>) clonar_objeto(iterador_valor);
             ente.posicion_valor = posicion_valor;
             ente.tam = tam;
-            ente.con_su = con_su.clone();
+            ente.con_su = (entes) con_su.clone();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -56,16 +65,16 @@ public class entes extends LinkedHashMap<String, a_eles> {
      * @param ele Dato que poner
      * @return El elemento que poner
      */
-    public a_eles put(String clave, a_eles ele) {
+    public i_eles put(String clave, i_eles ele) {
         return poner(clave, ele);
     }
     /**
      * Localiza el elemento de la clave indicada
      * @param clave Clave que buscar
-     * @return El dato correspondiente con la clave buscada o a_eles.nulo().
+     * @return El dato correspondiente con la clave buscada o i_eles.nulo().
      */
-    public a_eles get(String clave) {
-        a_eles ele = super.get(clave);
+    public i_eles get(String clave) {
+        i_eles ele = super.get(clave);
         if (ele != null) {
             return ele;
         } else {
@@ -75,9 +84,9 @@ public class entes extends LinkedHashMap<String, a_eles> {
     /**
      * Alias de get
      * @param clave Clave que buscar
-     * @return El dato correspondiente con la clave buscada o a_eles.nulo().
+     * @return El dato correspondiente con la clave buscada o i_eles.nulo().
      */
-    public a_eles leer(String clave) {
+    public i_eles leer(String clave) {
         return get(clave);
     }
     /**
@@ -86,8 +95,8 @@ public class entes extends LinkedHashMap<String, a_eles> {
      * @param ele Elemento que guardar
      * @return El elemento que se ha puesto en el mapa
      */
-    public a_eles poner(String clave, a_eles ele) {
-        a_eles ele_encontrado = leer(clave);
+    public i_eles poner(String clave, i_eles ele) {
+        i_eles ele_encontrado = leer(clave);
         ele_encontrado.poner(ele);
         super.put(clave, ele_encontrado);
         return ele_encontrado;
@@ -97,7 +106,7 @@ public class entes extends LinkedHashMap<String, a_eles> {
      * @param ele
      * @return 
      */
-    public a_eles poner(a_eles ele) {
+    public i_eles poner(i_eles ele) {
         Instant instant = Instant.now();
         String clave = instant.toString();
         int i = 1;
@@ -122,10 +131,10 @@ public class entes extends LinkedHashMap<String, a_eles> {
     }
     /**
      * Lee el siguiente elemento del mapa. con el último iterador generado.
-     * @return El siguiente elemento o a_eles.nulo()
+     * @return El siguiente elemento o i_eles.nulo()
      */
-    public a_eles leer_siguiente() {
-        a_eles retorno = a_eles.nulo();
+    public i_eles leer_siguiente() {
+        i_eles retorno = a_eles.nulo();
         if (iterador_valor == null) {
             iniciar();
         }
@@ -138,10 +147,10 @@ public class entes extends LinkedHashMap<String, a_eles> {
     /**
      * Lee el elemento del mapa en la posición indicada
      * @param pos Posición donde leer.
-     * @return El elemento buscado o a_eles.nulo
+     * @return El elemento buscado o i_eles.nulo
      */
-    public a_eles leer(long pos) {
-        a_eles retorno = a_eles.nulo();
+    public i_eles leer(long pos) {
+        i_eles retorno = a_eles.nulo();
         if (pos >= 0
                 || pos < size()) {
             if (tam != size()) {
@@ -155,7 +164,7 @@ public class entes extends LinkedHashMap<String, a_eles> {
             if (iterador_valor == null) {
                 iniciar();
             }
-            for (a_eles valor : this.values()) {
+            for (i_eles valor : this.values()) {
                 if (posicion_valor == pos) {
                     retorno = valor;
                 } else {
@@ -165,4 +174,135 @@ public class entes extends LinkedHashMap<String, a_eles> {
         }
         return retorno;
     }
+
+    @Override
+    public <tipos> tipos dar() {
+        return i_ele.dar();
+    }
+
+    @Override
+    public <tipos> tipos dar(i_eles ret) {
+        return i_ele.dar(ret);
+    }
+
+    @Override
+    public i_eles poner(Object dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public String leer_texto() {
+        return i_ele.leer_texto();
+    }
+
+    @Override
+    public Long leer_entero() {
+        return i_ele.leer_entero();
+    }
+
+    @Override
+    public Double leer_decimal() {
+        return i_ele.leer_decimal();
+    }
+
+    @Override
+    public Character leer_letra() {
+        return i_ele.leer_letra();
+    }
+
+    @Override
+    public Boolean es_nulo() {
+        return i_ele.es_nulo();
+    }
+
+    @Override
+    public Boolean es() {
+        return i_ele.es();
+    }
+
+    @Override
+    public Boolean no_es() {
+        return i_ele.no_es();
+    }
+
+    @Override
+    public i_eles si_o_no(Long umbral_si) {
+        return i_ele.si_o_no(umbral_si);
+    }
+
+    @Override
+    public Boolean leer_bool() {
+        return i_ele.leer_bool();
+    }
+
+    @Override
+    public acciones leer_accion() {
+        return i_ele.leer_accion();
+    }
+
+    @Override
+    public i_eles poner(double dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles poner(float dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles poner(int dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles poner(byte dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles poner(char dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles poner(boolean dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public i_eles si() {
+        return i_ele.si();
+    }
+
+    @Override
+    public i_eles si(Long valor) {
+        return i_ele.si(valor);
+    }
+
+    @Override
+    public i_eles y(i_eles ele) {
+        return i_ele.y(ele);
+    }
+
+    @Override
+    public i_eles o(i_eles ele) {
+        return i_ele.o(ele);
+    }
+
+    @Override
+    public i_eles xor(i_eles ele) {
+        return i_ele.xor(ele);
+    }
+
+    @Override
+    public i_eles no() {
+        return i_ele.no();
+    }
+
+    @Override
+    public i_eles no(Long valor) {
+        return i_ele.no(valor);
+    }
+
 }

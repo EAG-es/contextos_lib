@@ -15,13 +15,13 @@ public interface i_eles extends Cloneable, Serializable {
      * ret cotntiene verdad si el valor del elemento es así evaluado; falso, en caso contrario
      * @return el elemento encapsulado
      */    
-    <tipos> tipos dar(a_eles ret);
+    <tipos> tipos dar(i_eles ret);
     /**
      * Pone dato en el elemento encapsulado.
      * @param dato
-     * @return el propio contenedor que implementa a_eles.
+     * @return el propio contenedor que implementa i_eles.
      */
-    a_eles poner(Object dato);
+    i_eles poner(Object dato);
      /**
       * Extrae el String del objeto encapsulado, o lo adapta a ese tipo-
       * @return el elemento adaptado
@@ -70,7 +70,7 @@ public interface i_eles extends Cloneable, Serializable {
      * @param umbral_si Valor númerico de umbral
      * @return si() o no() 
      */
-    public a_eles si_o_no(Long umbral_si);    
+    public i_eles si_o_no(Long umbral_si);    
      /**
       * Extrae el Boolean del objeto encapsulado, o lo adapta a ese tipo, si es posible.
       * @return el elemento adaptado o null
@@ -86,88 +86,88 @@ public interface i_eles extends Cloneable, Serializable {
      * @param dato que asignar
      * @return el propio objeto
      */
-    public a_eles poner(a_eles dato);
+    public i_eles poner(i_eles dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */
-    public a_eles poner(double dato);
+    public i_eles poner(double dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */    
-    public a_eles poner(float dato);
+    public i_eles poner(float dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */    
-    public a_eles poner(int dato);
+    public i_eles poner(int dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */    
-    public a_eles poner(byte dato);
+    public i_eles poner(byte dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */    
-    public a_eles poner(char dato);
+    public i_eles poner(char dato);
     /**
      * Asigna el dato al elemento encapsulado.
      * @param dato que asignar
      * @return el propio objeto
      */    
-    public a_eles poner(boolean dato);
+    public i_eles poner(boolean dato);
     /**
      * Asigna un valor, equivalente a verdad, al elemento encapsulado.
      * @return el propio objeto
      */
-    public a_eles si();
+    public i_eles si();
     /**
      * Pone un valor, evaluable como verdad, al elemento encapsulado.
      * valor: 0 = false, no 0 = verdad
      * @return el propio objeto
      */    
-    public a_eles si(Long valor);
+    public i_eles si(Long valor);
     /**
      * Se asigna el resultado del operador y, valorando los datos en su equivalencia a verdad o falso.
      * ele: segundo operando del operador y
      * @return el propio objeto
      */   
-    public a_eles y(a_eles ele);
+    public i_eles y(i_eles ele);
     /**
      * Se asigna el resultado del operador o, valorando los datos en su equivalencia a verdad o falso.
      * ele: segundo operando del operador o
      * @return el propio objeto
      */     
-    public a_eles o(a_eles ele);
+    public i_eles o(i_eles ele);
     /**
      * Se asigna el resultado del operador xor, valorando los datos en su equivalencia a verdad o falso.
      * ele: segundo operando del operador xor
      * @return el propio objeto
      */      
-    public a_eles xor(a_eles ele);
+    public i_eles xor(i_eles ele);
     /**
      * Asigna un valor, equivalente a falso, al elemento encapsulado.
      * @return el propio objeto
      */    
-    public a_eles no();
+    public i_eles no();
     /**
      * Pone un valor, evaluable como falso, al elemento encapsulado.
      * valor: 0 = false, no 0 = verdad
      * @return el propio objeto
      */      
-    public a_eles no(Long valor);
+    public i_eles no(Long valor);
     /**
      * Clonado del elemento
      * @return el nuevo elemento, clonado.
      * @throws CloneNotSupportedException 
      */
-    public a_eles clone() throws CloneNotSupportedException;  
+    public i_eles clone() throws CloneNotSupportedException;  
 
 }

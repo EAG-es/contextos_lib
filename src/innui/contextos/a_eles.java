@@ -38,31 +38,36 @@ public abstract class a_eles implements i_eles {
     /**
      * Atribuyo estático con la factoria de a_eles por defecto.
      */
-    public static elems factoria = new elems();
+    public static a_eles factoria = new elems();
     /**
      * Constructor
      */
     public a_eles() {
     }
+    
     @Override
     public abstract <tipos> tipos dar();
     
     @Override
-    public abstract <tipos> tipos dar(a_eles ret);
+    public abstract <tipos> tipos dar(i_eles ret);
+    
     @Override
-    public abstract a_eles poner(Object dato);
+    public abstract i_eles poner(Object dato);
 
     public static void poner_factoria(elems factoria) {
         a_eles.factoria = factoria;
     }
     
-    public static <crear_tipos> a_eles crear() {
+    public static <crear_tipos> i_eles crear() {
         if (factoria != null) {
             return factoria.crear_nuevo();
         } else {
             return null;
         }
     }
+    
+    public abstract <crear_tipos> i_eles crear_nuevo();
+    
     @Override    
     public String toString() {
         return leer_texto();
@@ -176,7 +181,7 @@ public abstract class a_eles implements i_eles {
         return ! es();
     }
     @Override    
-    public a_eles si_o_no(Long umbral_si) {
+    public i_eles si_o_no(Long umbral_si) {
         Object object = dar();
         if (object instanceof Number) {
             Long este = leer_entero();
@@ -209,44 +214,44 @@ public abstract class a_eles implements i_eles {
         }
     }
     @Override
-    public a_eles poner(a_eles dato) {
+    public i_eles poner(i_eles dato) {
         poner ((Object)dato.dar());
         return this;
     }
     @Override
-    public a_eles poner(double dato) {
+    public i_eles poner(double dato) {
         return poner(Double.valueOf(dato));
     }
     @Override
-    public a_eles poner(float dato) {
+    public i_eles poner(float dato) {
         return poner(Float.valueOf(dato));
     }
     @Override
-    public a_eles poner(int dato) {
+    public i_eles poner(int dato) {
         return poner(Integer.valueOf(dato));
     }
     @Override
-    public a_eles poner(byte dato) {
+    public i_eles poner(byte dato) {
         return poner(Byte.valueOf(dato));
     }
     @Override
-    public a_eles poner(char dato) {
+    public i_eles poner(char dato) {
         return poner(Character.valueOf(dato));
     }
     @Override
-    public a_eles poner(boolean dato) {
+    public i_eles poner(boolean dato) {
         return poner(Boolean.valueOf(dato));
     }
     @Override
-    public a_eles si() {
+    public i_eles si() {
         return poner(1);
     }
     @Override
-    public a_eles si(Long valor) {
+    public i_eles si(Long valor) {
         return poner(valor);
     }
     @Override
-    public a_eles y(a_eles ele) {
+    public i_eles y(i_eles ele) {
         Long este = leer_entero();
         Long aquel = ele.leer_entero();
         if (este > falso) { // verdad o gran verdad
@@ -265,7 +270,7 @@ public abstract class a_eles implements i_eles {
         return this;
     }
     @Override
-    public a_eles o(a_eles ele) {
+    public i_eles o(i_eles ele) {
         Long este = leer_entero();
         Long aquel = ele.leer_entero();
         if (este == falso) { // falso
@@ -284,22 +289,22 @@ public abstract class a_eles implements i_eles {
         return this;
     }
     @Override
-    public a_eles xor(a_eles ele) {
+    public i_eles xor(i_eles ele) {
         boolean a = es();
         boolean b = ele.es();
         return poner((a && !b) || (!a && b));
     }
     @Override
-    public a_eles no() {
+    public i_eles no() {
         return poner(falso);
     }
     @Override
-    public a_eles no(Long valor) {
+    public i_eles no(Long valor) {
         return poner(valor);
     }
     @Override
-    public a_eles clone() throws CloneNotSupportedException {
-        return (a_eles) a_eles.clonar_objeto(this);
+    public i_eles clone() throws CloneNotSupportedException {
+        return (i_eles) a_eles.clonar_objeto(this);
     }
     /**
      * Método estático para realizar clonado profundo mediante refactorización
@@ -336,57 +341,57 @@ public abstract class a_eles implements i_eles {
         return clone;
     }
     /**
-     * Método estático para crear un a_eles con el valor: falso
-     * @return El nuevo objeto a_eles.
+     * Método estático para crear un i_eles con el valor: falso
+     * @return El nuevo objeto i_eles.
      */
-    public final static a_eles falso() {
+    public final static i_eles falso() {
         return crear(falso);
     }
     /**
-     * Método estático para crear un a_eles con el valor: verdad
-     * @return El nuevo objeto a_eles.
+     * Método estático para crear un i_eles con el valor: verdad
+     * @return El nuevo objeto i_eles.
      */
-    public final static a_eles verdad() {
+    public final static i_eles verdad() {
         return crear(verdad);
     }
     /**
-     * Método estático para crear un a_eles con el valor: ""
-     * @return El nuevo objeto a_eles.
+     * Método estático para crear un i_eles con el valor: ""
+     * @return El nuevo objeto i_eles.
      */    
-    public final static a_eles string() {
+    public final static i_eles string() {
         return crear(""); //NOI18N
     }
     /**
-     * Método estático para crear un a_eles con el valor: null
-     * @return El nuevo objeto a_eles.
+     * Método estático para crear un i_eles con el valor: null
+     * @return El nuevo objeto i_eles.
      */
-    public final static a_eles nulo() {
+    public final static i_eles nulo() {
         return crear(null);
     } 
     /**
-     * Crea un objeto a_eles con un valor inicial (lo que condiciona su tipo interno)
-     * @param <nuevos_tipos> Tipo interno del objeto a_eles
+     * Crea un objeto i_eles con un valor inicial (lo que condiciona su tipo interno)
+     * @param <nuevos_tipos> Tipo interno del objeto i_eles
      * @param objeto Dato que contendrá
-     * @return El nuevo objeto a_eles creado.
+     * @return El nuevo objeto i_eles creado.
      */
-    public static <nuevos_tipos> a_eles crear(nuevos_tipos objeto) {
-        if (objeto instanceof a_eles) {
-            return (a_eles) objeto;
+    public static <nuevos_tipos> i_eles crear(nuevos_tipos objeto) {
+        if (objeto instanceof i_eles) {
+            return (i_eles) objeto;
         } else {
-            a_eles ele = a_eles.<nuevos_tipos>crear();
+            i_eles ele = a_eles.<nuevos_tipos>crear();
             ele.poner(objeto);
             return ele;
         }
     }
     /**
-     * Crea un objeto a_eles con un valor inicial (lo que condiciona su tipo interno)
-     * @param <nuevos_tipos> Tipo interno del objeto a_eles
+     * Crea un objeto i_eles con un valor inicial (lo que condiciona su tipo interno)
+     * @param <nuevos_tipos> Tipo interno del objeto i_eles
      * @param nombre Nombre que utilizar como clave de almacenamiento.
      * @param objeto Dato que contendrá
-     * @return El nuevo objeto a_eles creado.
+     * @return El nuevo objeto i_eles creado.
      */
-    public static <nuevos_tipos> a_eles crear(String nombre, nuevos_tipos objeto) {
-        a_eles ele = a_eles.<nuevos_tipos>crear(objeto);
+    public static <nuevos_tipos> i_eles crear(String nombre, nuevos_tipos objeto) {
+        a_eles ele = (a_eles) a_eles.<nuevos_tipos>crear(objeto);
         ele.nombre = nombre;
         return ele;
     }

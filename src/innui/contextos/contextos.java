@@ -7,7 +7,11 @@ import java.util.Map;
 /**
  * 
  */
-public class contextos implements Cloneable, Serializable {
+public class contextos extends a_eles {
+    /**
+     * Atributo que trata a esta instancia de entes como un i_ele
+     */
+    public i_eles i_ele;
     /**
      * Prefijo para designar los nombre del contexto que son opcionales-
      */
@@ -25,6 +29,12 @@ public class contextos implements Cloneable, Serializable {
      */
     public entes con_su = null;
     /**
+     * Construye el objeto y se lo asigna a i_ele.
+     */
+    public contextos() {
+        i_ele = a_eles.crear(this);
+    }
+    /**
      * Clona el contexto
      * @return El nuevo objeto clonado
      * @throws CloneNotSupportedException 
@@ -33,12 +43,12 @@ public class contextos implements Cloneable, Serializable {
     public contextos clone() throws CloneNotSupportedException {
         contextos contexto = new contextos();
         if (mapa != null) {
-            for (Map.Entry<String, a_eles> entrada : mapa.entrySet()) {
+            for (Map.Entry<String, i_eles> entrada : mapa.entrySet()) {
                 contexto.mapa.poner(entrada.getKey(), entrada.getValue().clone());
             }
         }
         for (entes submapa: mapas_pila) {
-            contexto.mapas_pila.addLast(submapa.clone());
+            contexto.mapas_pila.addLast((entes) submapa.clone());
         }
         if (con_su != null) {
             contexto.con_su = (entes) con_su.clone();
@@ -53,19 +63,19 @@ public class contextos implements Cloneable, Serializable {
      * @return null si ha eliminado el elemento, o hay error al crearlo. retorna el elemento a_eles, si este se ha incorporado en el contexto
      */
     public <tipos> a_eles superponer(String nombre, tipos dato) {
-        a_eles dato_eles = a_eles.nulo();
+        a_eles dato_eles = (a_eles) a_eles.nulo();
         if (mapa == null) {
             mapa = new entes();
         }
         if (dato == null) {
             mapa.remove(nombre);
         } else {
-            if (dato instanceof a_eles) {
-                mapa.poner(nombre, (a_eles) dato);
+            if (dato instanceof i_eles) {
+                mapa.poner(nombre, (i_eles) dato);
             } else {
-                dato_eles = mapa.leer(nombre);
+                dato_eles = (a_eles) mapa.leer(nombre);
                 if (dato_eles.es_nulo()) {
-                    dato_eles = a_eles.<tipos>crear(nombre, dato);
+                    dato_eles = (a_eles) a_eles.<tipos>crear(nombre, dato);
                 } else {
                     dato_eles.nombre = nombre;
                     dato_eles.poner(dato);
@@ -82,19 +92,19 @@ public class contextos implements Cloneable, Serializable {
      * @param tipos_array valores del grupo
      * @return a_eles.verdad() si tiene exito. else.falso() si hay errores.
      */
-    public <tipos> a_eles superponer_grupo(String nombre, tipos ... tipos_array)
+    public <tipos> i_eles superponer_grupo(String nombre, tipos ... tipos_array)
     {
         grupos grupo = new grupos();
         int i = 0;
         String nombre_en_grupo = ""; //NOI18N
         for (tipos tipo: tipos_array) {
             nombre_en_grupo = nombre + "[" + i + "]"; //NOI18N
-            a_eles ele = a_eles.crear(tipo);
+            a_eles ele = (a_eles) a_eles.crear(tipo);
             ele.nombre = nombre_en_grupo;
             grupo.poner(ele);
             i = i + 1;
         }
-        a_eles ele = a_eles.crear(grupo);
+        a_eles ele = (a_eles) a_eles.crear(grupo);
         a_eles retorno = superponer(nombre, ele);
         if (retorno == null) {
             return a_eles.falso();
@@ -103,17 +113,17 @@ public class contextos implements Cloneable, Serializable {
         }
     }
     /**
-     * Pone un grupo de objetos a_eles en el contexto, si no es null (en ese caso lo elimina). Si ya existía, lo reemplaza.
+     * Pone un grupo de objetos i_eles en el contexto, si no es null (en ese caso lo elimina). Si ya existía, lo reemplaza.
      * @param nombre nombre del grupo
      * @param eles_array valores del grupo
-     * @return a_eles.verdad() si tiene exito. else.falso() si hay errores.
+     * @return i_eles.verdad() si tiene exito. else.falso() si hay errores.
      */
-    public a_eles superponer_grupo(String nombre, a_eles ... eles_array)
+    public i_eles superponer_grupo(String nombre,i_eles ... eles_array)
     {
         grupos grupo = new grupos();
         grupo.poner_grupo(eles_array);
-        a_eles ele = a_eles.crear(grupo);
-        a_eles retorno = superponer(nombre, ele);
+        i_eles ele = a_eles.crear(grupo);
+        i_eles retorno = superponer(nombre, ele);
         if (retorno == null) {
             return a_eles.falso();
         } else {
@@ -128,8 +138,8 @@ public class contextos implements Cloneable, Serializable {
      * Si un nombre no existe en el contexto, se crea; a menos que el a superponer valor sea null
      * @return true si es correcto, false si hay error.
      */
-    public a_eles superponer(Object ... eles_array) {
-        a_eles retorno = a_eles.falso();
+    public i_eles superponer(Object ... eles_array) {
+        i_eles retorno = a_eles.falso();
         String clave = ""; //NOI18N
         int tam = eles_array.length;
         if (tam % 2 == 0) {
@@ -159,8 +169,8 @@ public class contextos implements Cloneable, Serializable {
     * @param nombre elemento a leer
     * @return el elemento buscado, o a_eles.nulo().
     */
-    public a_eles leer(String nombre) {
-        a_eles dato = a_eles.nulo();
+    public i_eles leer(String nombre) {
+        i_eles dato = a_eles.nulo();
         if (mapa != null) {
             dato = mapa.leer(nombre);
         }
@@ -180,8 +190,8 @@ public class contextos implements Cloneable, Serializable {
     * @param por_defecto elemento qeu ofrecer, si no se encuentra.
     * @return el elemento buscado, o el elemento por defecto.
     */
-    public a_eles leer(String nombre, a_eles por_defecto) {
-        a_eles dato = leer(nombre);
+    public i_eles leer(String nombre, i_eles por_defecto) {
+        i_eles dato = leer(nombre);
         if (dato.es_nulo()) {
             return por_defecto;
         } else {
@@ -191,19 +201,19 @@ public class contextos implements Cloneable, Serializable {
 
     /**
      * Subir el nivel de la pila que permite la recursividad
-     * eles_array a_eles que subir en la pila
+     * eles_array i_eles que subir en la pila
      * Solo deben subir pila aquellos elementos que se van a crear nuevos (directa o indirectamente).
      * O que son inmutables, como los números o los String.
      * @param eles_array Los elementos que subir.
      * @return a_eles.verdad()
      */
-    public a_eles subir(a_eles ... eles_array) {
+    public i_eles subir(i_eles ... eles_array) {
         if (mapa != null) {
             mapas_pila.addLast(mapa);
         }
         mapa = new entes();
-        for (a_eles ele: eles_array) {
-            superponer(ele.nombre, ele);
+        for (i_eles ele: eles_array) {
+            superponer(((a_eles) ele).nombre, ele);
         }
         return a_eles.verdad();
     }
@@ -213,7 +223,7 @@ public class contextos implements Cloneable, Serializable {
      * @param nombres_array nombres de elementos que comprobar que existen en el contexto
      * @return 
      */
-    public a_eles subir(a_eles [] eles_array, String ... nombres_array) {
+    public i_eles subir(i_eles [] eles_array, String ... nombres_array) {
         subir(eles_array);
         return es(nombres_array);
     }
@@ -226,7 +236,7 @@ public class contextos implements Cloneable, Serializable {
      * Si un nombre no existe en el contexto, se crea; a menos que el valor a superponer valor sea null
      * @return true si es correcto, false si hay error.
      */
-    public a_eles bajar_con_datos(Object ... eles_array) {
+    public i_eles bajar_con_datos(Object ... eles_array) {
         a_eles dato = null;
         String clave = ""; //NOI18N
         entes submapa = null;
@@ -249,12 +259,12 @@ public class contextos implements Cloneable, Serializable {
                         if (eles_array[i + 1] instanceof a_eles) {
                             dato = (a_eles) eles_array[i + 1];
                         } else {
-                            dato = a_eles.crear(eles_array[i + 1]);
+                            dato = (a_eles) a_eles.crear(eles_array[i + 1]);
                         }
                         dato.nombre = clave;
                         submapa.poner(clave, dato);
                     } else {
-                        dato = mapa.leer(clave);
+                        dato = (a_eles) mapa.leer(clave);
                         if (dato.es_nulo() == false) {
                             submapa.poner(clave, dato);
                         }
@@ -274,8 +284,8 @@ public class contextos implements Cloneable, Serializable {
      * Si un nombre no existe en el contexto, se crea; a menos que el valor a superponer sea null, que es ignorado.
      * @return true si es correcto, false si hay error.
      */
-    public a_eles bajar(String ... nombres_array) {
-        a_eles dato = null;
+    public i_eles bajar(String ... nombres_array) {
+        i_eles dato = null;
         String clave = ""; //NOI18N
         int tam = nombres_array.length;
         entes submapa = null;
@@ -312,7 +322,7 @@ public class contextos implements Cloneable, Serializable {
      * Las posiciones impares son el valor. Si el valor en null, se toma el que ya haya en el contexto y se baja.
      * @return a_eles.verdad().
      */
-    public a_eles fondear_con_datos(Object ... eles_array) {
+    public i_eles fondear_con_datos(Object ... eles_array) {
         a_eles dato = null;
         String clave = ""; //NOI18N
         int tam = eles_array.length;
@@ -337,7 +347,7 @@ public class contextos implements Cloneable, Serializable {
                     if (eles_array[i + 1] instanceof a_eles) {
                         dato = (a_eles) eles_array[i + 1];
                     } else {
-                        dato = a_eles.crear(clave, eles_array[i + 1]);
+                        dato = (a_eles) a_eles.crear(clave, eles_array[i + 1]);
                     }
                     dato.nombre = clave;
                     submapa.poner(clave, dato);
@@ -354,8 +364,8 @@ public class contextos implements Cloneable, Serializable {
      * @param strings_array nombres de elementos
      * @return verdad si está o es opcional, falso si no está y es obligatorio
      */
-    public a_eles es(String ... strings_array) {
-        a_eles ret = subir();
+    public i_eles es(String ... strings_array) {
+        i_eles ret = subir();
         String error = "";  //NOI18N
         try {
             for (String nombre: strings_array) {
@@ -373,6 +383,26 @@ public class contextos implements Cloneable, Serializable {
             bajar_con_datos("error", error); //NOI18N
         }
         return ret;
+    }
+
+    @Override
+    public <tipos> tipos dar() {
+         return i_ele.dar();
+   }
+
+    @Override
+    public <tipos> tipos dar(i_eles ret) {
+         return i_ele.dar(ret);
+   }
+
+    @Override
+    public i_eles poner(Object dato) {
+        return i_ele.poner(dato);
+    }
+
+    @Override
+    public <crear_tipos> i_eles crear_nuevo() {
+        return ((a_eles)i_ele).crear_nuevo();
     }
 
 }
