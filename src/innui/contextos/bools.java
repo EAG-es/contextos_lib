@@ -6,36 +6,36 @@
 package innui.contextos;
 
 /**
- * Recubrimiento de la clase Boolean para que sus instancias puedan ser tratados como objeto mutable.
+ * Recubrimiento de la clase Boolean usando la clase Byte para que sus instancias puedan ser tratados como objeto mutable.
  */
-public class bools extends elems<Boolean> {
+public class bools extends elems<Byte> {
     
     public bools(boolean value) {
-        a = value;
+        a = (value)?(byte)1:(byte)0;
     }
     public bools(String s) {
-        a = Boolean.valueOf(s);
+        a = Byte.valueOf(s);
     }
     public bools(textos s) {
-        a = Boolean.valueOf(s.a);
+        a = Byte.valueOf(s.a);
     }
     public bools(Boolean b) {
-        a = b;
+        this(b.booleanValue());
     }      
     public bools(bools b) {
         a = b.a;
     }
     public boolean booleanValue() {
-        return a;
+        return es();
     }
     public static int compare(boolean x, boolean y) {
         return Boolean.compare(x, y);
     }
     public static int compare(bools x, bools y) {
-        return Boolean.compare(x.a, y.a);
+        return Byte.compare(x.a, y.a);
     }
     public int compareTo(Boolean b) {
-        return a.compareTo(b);
+        return a.compareTo((b)?(byte)1:(byte)0);
     }
     public int compareTo(bools b) {
         return a.compareTo(b.a);
@@ -55,6 +55,7 @@ public class bools extends elems<Boolean> {
     public static boolean parseBoolean(textos s) {
         return Boolean.parseBoolean(s.a);
     }
+    @Override
     public String toString() {
         return a.toString();
     }
@@ -65,13 +66,13 @@ public class bools extends elems<Boolean> {
         return Boolean.toString(b);
     }
     public static String toString(bools b) {
-        return Boolean.toString(b.a);
+        return Byte.toString(b.a);
     }
     public static textos toTextos(boolean b) {
         return new textos(bools.toString(b));
     }
     public static textos toTextos(bools b) {
-        return new textos(bools.toString(b.a));
+        return new textos(b.toString());
     }
     public static bools valueOf(boolean b) {
         return new bools(b);
@@ -90,14 +91,14 @@ public class bools extends elems<Boolean> {
         return this;
     }
     public bools set(Boolean bb) {
-        a = bb;
+        set(bb.booleanValue());
         return this;
     }
     public bools set(boolean b) {
-        a = b;
+        a = (b)?(byte)1:(byte)0;
         return this;
     }
     public Boolean getBoolean() {
-        return a;
+        return es();
     }
 }

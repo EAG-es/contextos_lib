@@ -262,4 +262,19 @@ public class grupos extends LinkedHashSet<i_eles> implements i_eles {
         return i_ele.no(valor);
     }
 
+    @Override
+    public String leer_nombre() {
+        return i_ele.leer_nombre();
+    }
+
+    @Override
+    public i_eles poner_nombre(String nombre) {
+        return i_ele.poner_nombre(nombre);
+    }
+
+    @Override
+    public <crear_tipos> i_eles crear_nuevo() {
+        return i_ele.crear_nuevo();
+    }
+    
 }

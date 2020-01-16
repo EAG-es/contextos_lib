@@ -12,7 +12,7 @@ public interface i_eles extends Cloneable, Serializable {
     /**
      * Entrega el elemento encapsulado, adaptado al tipo indicado
      * @param <tipos> tipo al qeu adaptar, si se puede.
-     * ret cotntiene verdad si el valor del elemento es así evaluado; falso, en caso contrario
+     * @param ret cotntiene verdad si el valor del elemento es así evaluado; falso, en caso contrario
      * @return el elemento encapsulado
      */    
     <tipos> tipos dar(i_eles ret);
@@ -26,6 +26,7 @@ public interface i_eles extends Cloneable, Serializable {
       * Extrae el String del objeto encapsulado, o lo adapta a ese tipo-
       * @return el elemento adaptado
       */ 
+    @Override
     public String toString();
      /**
       * Extrae el String del objeto encapsulado, o lo adapta a ese tipo.
@@ -130,25 +131,25 @@ public interface i_eles extends Cloneable, Serializable {
     public i_eles si();
     /**
      * Pone un valor, evaluable como verdad, al elemento encapsulado.
-     * valor: 0 = false, no 0 = verdad
+     * @param valor 0 = false, no 0 = verdad
      * @return el propio objeto
      */    
     public i_eles si(Long valor);
     /**
      * Se asigna el resultado del operador y, valorando los datos en su equivalencia a verdad o falso.
-     * ele: segundo operando del operador y
+     * @param ele: segundo operando del operador y
      * @return el propio objeto
      */   
     public i_eles y(i_eles ele);
     /**
      * Se asigna el resultado del operador o, valorando los datos en su equivalencia a verdad o falso.
-     * ele: segundo operando del operador o
+     * @param ele: segundo operando del operador o
      * @return el propio objeto
      */     
     public i_eles o(i_eles ele);
     /**
      * Se asigna el resultado del operador xor, valorando los datos en su equivalencia a verdad o falso.
-     * ele: segundo operando del operador xor
+     * @param ele: segundo operando del operador xor
      * @return el propio objeto
      */      
     public i_eles xor(i_eles ele);
@@ -159,7 +160,7 @@ public interface i_eles extends Cloneable, Serializable {
     public i_eles no();
     /**
      * Pone un valor, evaluable como falso, al elemento encapsulado.
-     * valor: 0 = false, no 0 = verdad
+     * @param valor: 0 = false, no 0 = verdad
      * @return el propio objeto
      */      
     public i_eles no(Long valor);
@@ -168,6 +169,23 @@ public interface i_eles extends Cloneable, Serializable {
      * @return el nuevo elemento, clonado.
      * @throws CloneNotSupportedException 
      */
-    public i_eles clone() throws CloneNotSupportedException;  
+    public i_eles clone() throws CloneNotSupportedException; 
+    /**
+     * Lee el nombre que tiene ese elemento. Si lo tiene.
+     * @return El nombre del elemento, null si no lo tiene.
+     */
+    public String leer_nombre();
+    /**
+     * Pone nombre al elemento.
+     * @param nombre Nombre que poner
+     * @return El elemento.
+     */
+    public i_eles poner_nombre(String nombre);
+    /**
+     * Crea un nuevo elemento conteniendo un tipo determinado
+     * @param <crear_tipos> Tipo del contenido del elemento
+     * @return El elemento creado, o null si hay error
+     */
+    public abstract <crear_tipos> i_eles crear_nuevo();
 
 }

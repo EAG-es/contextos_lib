@@ -1,6 +1,5 @@
 package innui.contextos;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -56,14 +55,30 @@ public class contextos extends a_eles {
         return contexto;
     }
     /**
-     * Pone un objeto de tipos en el contexto, si no es null (en ese caso lo elimina). Si ya existía, lo reemplaza.
+     * Modifica el elemento más superior con ese nombre, si existe
      * @param <tipos> Tipo del dato
      * @param nombre nombre del elemento
      * @param dato valor del elemento
-     * @return null si ha eliminado el elemento, o hay error al crearlo. retorna el elemento a_eles, si este se ha incorporado en el contexto
+     * @return i_eles nulo hay error; o el elemento modificado.
      */
-    public <tipos> a_eles superponer(String nombre, tipos dato) {
-        a_eles dato_eles = (a_eles) a_eles.nulo();
+    public <tipos> i_eles modificar(String nombre, tipos dato) {
+        i_eles dato_eles;
+        dato_eles = leer(nombre);
+        if (dato_eles.es_nulo() == false) {
+            dato_eles.poner_nombre(nombre);
+            dato_eles.poner(dato);
+        }
+        return dato_eles;
+    }
+    /**
+     * Pone un objeto de tipos en el contexto, si no es null (en ese caso lo elimina). Si ya existía, en el nivel superior, lo reemplaza.
+     * @param <tipos> Tipo del dato
+     * @param nombre nombre del elemento
+     * @param dato valor del elemento
+     * @return null si ha eliminado el elemento, o hay error al crearlo. retorna el elemento i_eles, si este se ha incorporado en el contexto
+     */
+    public <tipos> i_eles superponer(String nombre, tipos dato) {
+        i_eles dato_eles = a_eles.nulo();
         if (mapa == null) {
             mapa = new entes();
         }
@@ -73,11 +88,11 @@ public class contextos extends a_eles {
             if (dato instanceof i_eles) {
                 mapa.poner(nombre, (i_eles) dato);
             } else {
-                dato_eles = (a_eles) mapa.leer(nombre);
+                dato_eles = mapa.leer(nombre);
                 if (dato_eles.es_nulo()) {
-                    dato_eles = (a_eles) a_eles.<tipos>crear(nombre, dato);
+                    dato_eles = a_eles.<tipos>crear(nombre, dato);
                 } else {
-                    dato_eles.nombre = nombre;
+                    dato_eles.poner_nombre(nombre);
                     dato_eles.poner(dato);
                 }
                 mapa.poner(nombre, dato_eles);
@@ -86,7 +101,7 @@ public class contextos extends a_eles {
         return dato_eles;
     }
     /**
-     * Pone un grupo de objetos de tipos en el contexto, si no es null (en ese caso lo elimina). Si ya existía, lo reemplaza.
+     * Pone un grupo de objetos de tipos en el contexto, si no es null (en ese caso lo elimina). Si ya existía, en el nivel superior, lo reemplaza.
      * @param <tipos> Tipo del dato
      * @param nombre nombre del grupo
      * @param tipos_array valores del grupo
@@ -99,13 +114,13 @@ public class contextos extends a_eles {
         String nombre_en_grupo = ""; //NOI18N
         for (tipos tipo: tipos_array) {
             nombre_en_grupo = nombre + "[" + i + "]"; //NOI18N
-            a_eles ele = (a_eles) a_eles.crear(tipo);
-            ele.nombre = nombre_en_grupo;
+            i_eles ele = a_eles.crear(tipo);
+            ele.poner_nombre(nombre_en_grupo);
             grupo.poner(ele);
             i = i + 1;
         }
-        a_eles ele = (a_eles) a_eles.crear(grupo);
-        a_eles retorno = superponer(nombre, ele);
+        i_eles ele = a_eles.crear(grupo);
+        i_eles retorno = superponer(nombre, ele);
         if (retorno == null) {
             return a_eles.falso();
         } else {
@@ -113,7 +128,7 @@ public class contextos extends a_eles {
         }
     }
     /**
-     * Pone un grupo de objetos i_eles en el contexto, si no es null (en ese caso lo elimina). Si ya existía, lo reemplaza.
+     * Pone un grupo de objetos i_eles en el contexto, si no es null (en ese caso lo elimina). Si ya existía, en el nivel superior, lo reemplaza.
      * @param nombre nombre del grupo
      * @param eles_array valores del grupo
      * @return i_eles.verdad() si tiene exito. else.falso() si hay errores.
@@ -213,7 +228,7 @@ public class contextos extends a_eles {
         }
         mapa = new entes();
         for (i_eles ele: eles_array) {
-            superponer(((a_eles) ele).nombre, ele);
+            superponer(ele.leer_nombre(), ele);
         }
         return a_eles.verdad();
     }
@@ -237,7 +252,7 @@ public class contextos extends a_eles {
      * @return true si es correcto, false si hay error.
      */
     public i_eles bajar_con_datos(Object ... eles_array) {
-        a_eles dato = null;
+        i_eles dato = null;
         String clave = ""; //NOI18N
         entes submapa = null;
         int tam = eles_array.length;
@@ -256,15 +271,15 @@ public class contextos extends a_eles {
                         clave = a_eles.crear(eles_array[i]).dar();
                     }
                     if (eles_array[i + 1] != null) {
-                        if (eles_array[i + 1] instanceof a_eles) {
-                            dato = (a_eles) eles_array[i + 1];
+                        if (eles_array[i + 1] instanceof i_eles) {
+                            dato = (i_eles) eles_array[i + 1];
                         } else {
-                            dato = (a_eles) a_eles.crear(eles_array[i + 1]);
+                            dato = a_eles.crear(eles_array[i + 1]);
                         }
-                        dato.nombre = clave;
+                        dato.poner_nombre(clave);
                         submapa.poner(clave, dato);
                     } else {
-                        dato = (a_eles) mapa.leer(clave);
+                        dato = mapa.leer(clave);
                         if (dato.es_nulo() == false) {
                             submapa.poner(clave, dato);
                         }
@@ -323,7 +338,7 @@ public class contextos extends a_eles {
      * @return a_eles.verdad().
      */
     public i_eles fondear_con_datos(Object ... eles_array) {
-        a_eles dato = null;
+        i_eles dato = null;
         String clave = ""; //NOI18N
         int tam = eles_array.length;
         entes submapa = null;
@@ -344,12 +359,12 @@ public class contextos extends a_eles {
                     clave = a_eles.crear(eles_array[i]).dar();
                 }
                 if (eles_array[i + 1] != null) {
-                    if (eles_array[i + 1] instanceof a_eles) {
-                        dato = (a_eles) eles_array[i + 1];
+                    if (eles_array[i + 1] instanceof i_eles) {
+                        dato = (i_eles) eles_array[i + 1];
                     } else {
-                        dato = (a_eles) a_eles.crear(clave, eles_array[i + 1]);
+                        dato = a_eles.crear(clave, eles_array[i + 1]);
                     }
-                    dato.nombre = clave;
+                    dato.poner_nombre(clave);
                     submapa.poner(clave, dato);
                 } else {
                     submapa.poner(clave, dato);
@@ -402,7 +417,7 @@ public class contextos extends a_eles {
 
     @Override
     public <crear_tipos> i_eles crear_nuevo() {
-        return ((a_eles)i_ele).crear_nuevo();
+        return i_ele.crear_nuevo();
     }
 
 }

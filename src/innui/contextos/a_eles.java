@@ -2,6 +2,7 @@ package innui.contextos;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 /**
  * Clase Abstracta implementando i_eles
@@ -38,7 +39,7 @@ public abstract class a_eles implements i_eles {
     /**
      * Atribuyo estático con la factoria de a_eles por defecto.
      */
-    public static a_eles factoria = new elems();
+    public static i_eles factoria = new elems();
     /**
      * Constructor
      */
@@ -58,7 +59,7 @@ public abstract class a_eles implements i_eles {
         a_eles.factoria = factoria;
     }
     
-    public static <crear_tipos> i_eles crear() {
+    public static i_eles crear() {
         if (factoria != null) {
             return factoria.crear_nuevo();
         } else {
@@ -66,6 +67,7 @@ public abstract class a_eles implements i_eles {
         }
     }
     
+    @Override
     public abstract <crear_tipos> i_eles crear_nuevo();
     
     @Override    
@@ -263,7 +265,7 @@ public abstract class a_eles implements i_eles {
         } else if (este < falso) { // algo falso
             if (aquel < falso) { // algo falso
                 poner(Math.max(aquel, este)); // lo menos bueno
-            } else if (aquel == falso) { // falso
+            } else if (Objects.equals(aquel, falso)) { // falso
                 poner(aquel); // manda aquel
             } //  verdad o gran verdad (no se hace nada)
         } // falso (no se hace nada)
@@ -273,7 +275,7 @@ public abstract class a_eles implements i_eles {
     public i_eles o(i_eles ele) {
         Long este = leer_entero();
         Long aquel = ele.leer_entero();
-        if (este == falso) { // falso
+        if (Objects.equals(este, falso)) { // falso
             poner(aquel); // manda aquel.
         } else if (este < falso) { // algo falso
             if (aquel < falso) { // algo falso
@@ -375,7 +377,7 @@ public abstract class a_eles implements i_eles {
      * @return El nuevo objeto i_eles creado.
      */
     public static <nuevos_tipos> i_eles crear(nuevos_tipos objeto) {
-        if (objeto instanceof i_eles) {
+        if (objeto instanceof a_eles) {
             return (i_eles) objeto;
         } else {
             i_eles ele = a_eles.<nuevos_tipos>crear();
@@ -394,5 +396,16 @@ public abstract class a_eles implements i_eles {
         a_eles ele = (a_eles) a_eles.<nuevos_tipos>crear(objeto);
         ele.nombre = nombre;
         return ele;
+    }
+    
+    @Override
+    public String leer_nombre() {
+        return nombre;
+    }    
+
+    @Override
+    public i_eles poner_nombre(String nombre) {
+        this.nombre = nombre;
+        return this;
     }
 }

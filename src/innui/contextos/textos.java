@@ -237,7 +237,7 @@ public class textos extends elems<String> {
         return a.regionMatches(ignoreCase, toffset, other, ooffset, len);
     }
     public boolean regionMatches(bools ignoreCase, enteros toffset, textos other, enteros ooffset, enteros len) {
-        return a.regionMatches(ignoreCase.a, toffset.intValue(), other.a, ooffset.intValue(), len.intValue());
+        return a.regionMatches(ignoreCase.es(), toffset.intValue(), other.a, ooffset.intValue(), len.intValue());
     }
     public boolean regionMatches(int toffset, String other, int ooffset, int len) {
         return a.regionMatches(toffset, other, ooffset, len);
@@ -328,7 +328,7 @@ public class textos extends elems<String> {
     }
     @Override
     public String toString() {
-        return a.toString();
+        return a;
     }
     public textos toUpperCase() {
         a = a.toUpperCase();
