@@ -336,4 +336,9 @@ public class filas extends LinkedList<i_eles> implements i_eles {
         return i_ele.crear_nuevo();
     }
     
+    @Override
+    public Boolean no_es_nulo() {
+        return ! es_nulo();
+    }
+
 }

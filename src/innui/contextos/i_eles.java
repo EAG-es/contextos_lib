@@ -54,6 +54,11 @@ public interface i_eles extends Cloneable, Serializable {
       */ 
     public Boolean es_nulo();
      /**
+      * Indica si el elemento encapsulado no es nulo o sí lo es
+      * @return true si el elemento encapsulado es nulo.
+      */ 
+    public Boolean no_es_nulo();
+     /**
       * Indica si el elemento encapsulado es (se identifica como) verdad o no.
       * @return true si el elemento encapsulado es verdad, false en caso contrario.
       */     

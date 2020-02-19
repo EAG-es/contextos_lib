@@ -157,6 +157,10 @@ public abstract class a_eles implements i_eles {
             return Boolean.FALSE;
         }
     }
+    @Override
+    public Boolean no_es_nulo() {
+        return ! es_nulo();
+    }
     @Override    
     public Boolean es() {
         Object object = dar();
